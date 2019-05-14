@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\include{header-1.tex}
+
+\title{PPLFinal}
+\author{wilkitom }
+\date{May 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+In this final, I will rewrite pages 134-142 of the Huttel text book. I will rewrite these pages using the Big-Step semantics of Dr.Caldwells code, changing the text to include one environment for all data structures and to include Type Structures. 
+
+\section{Declarations}
+\subsection{Formation Rules}
+$X ::= x \mid r.X$\\
+$P ::= p \mid r.P$\\
+$a ::= n \mid X \mid a_1+a_2 \mid a_1*a_2 \mid a_1-a_2 \mid (a_1)$\\
+$b ::= a_1 = a_2 \mid a_1 > a_2 \mid \neg b_1 \mid b_1 \wedge b_2$\\
+$S ::= X := a \mid skip \mid S_1 ; S_2 \mid if \: b \: then \: S_1 \: else \: S_2 \mid while \: b \: do \: S \mid begin \: D \: S \: end \mid call \: X$\\
+$TS ::= n \mid record \: D \mid X$\\
+$D ::= var \: x := a;TS \mid proc \:p\: is\: S;TS \mid class\: c\: is \:D \:end;TS \mid D\: D$
+
+\subsection{Environments}
+$Env = (vars := Var \bigcup \{next\} \rightharpoonup Loc) x (procs $
+\end{document}

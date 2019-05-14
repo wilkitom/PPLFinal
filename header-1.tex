@@ -1,0 +1,76 @@
+\usepackage{amsmath}
+
+% adding a where clause - you can have multiple lines in where clause separated by "\\"
+%\newcommand{\withWhere}[2]{$\begin{array}[t]{l}{{#1}}\\{}
+%{{\;\;\;\;{\mathrm{where}}\;}}\\\;\;\;\;\;\;\begin{array}[t]{l}{#2}\end{array}\end{array}$}
+
+% wwnlindent - for multiple where clauses - use wwnlindent for each extra line
+%     see the definition of \classDRule below for an example usage.
+\newcommand{\wwnlindent}{\newline{\mbox{\hspace{5.25em}}}}
+
+% withWhere takes an enpression and then prints a properly 
+% indented "where"  on the next line and then indents for the 
+%"where" entry. See \intTSRule for an example of a usage with one 
+% where clause. 
+\newcommand{\withWhere}[1]{\begin{tabular}{l}{$#1$}\\{\hspace{3em}}where{\hspace{.5em}}\end{tabular}\wwnlindent}
+
+
+% a simple transition (with no \vdash)
+\newcommand{\strans}[3]{\langle{#2}\rangle\,\rightarrow_{#1}\,{#3}}
+
+% a transition (with  \vdash)
+\newcommand{\trans}[4]{{#2}\,\vdash\,\langle{#3}\rangle\,\rightarrow_{#1}\,{#4}}
+
+% ->(TS)  Type Structure transitions
+%
+\newcommand{\tsTrans}[3]{\trans{TS}{env}{{#1},\,{#3}}{({#2},\,{#3}')}}
+\newcommand{\intTSTrans}{\tsTrans{Int}{Loc\; l}{sto}}
+\newcommand{\intTSRule}{\noindent\withWhere{\intTSTrans}{(Loc\;l,sto')\,=\,alloc\;sto}}
+
+
+% ->(D)
+\newcommand{\declTrans}[2]{\strans{D}{{#1},\,env,sto}{#2}}
+\newcommand{\varDTrans}[1]{\declTrans{var\, x\, :\, ts}{#1}}
+\newcommand{\procDTrans}{\declTrans{procs\;p\;is\;s}{(env_0.proc[p\mapsto(s,f)],sto')}}
+
+% argument to classDTrans is the expression to use as a return value
+\newcommand{\classDTrans}[1]{\declTrans{class\;c\,=\,ts}{#1}}
+
+% argument to classDTrans is the expression to use as a return value
+\newcommand{\seqDTrans}[1]{\declTrans{D_1;\;D_2}{#1}}
+
+\newcommand{\classDRule}{\noindent\
+\withWhere{\classDTrans{env_o.classes[c\,\mapsto\,(ts,f)}}\
+          {$f\;sto'\,=\,(tsval,sto'')$\wwnlindent$\tsTrans{ts}{tsval}{sto}$}}
+
+% --------------- Stacked rules ------------------
+
+
+
+\newcommand{\stackedRule}[2]{\begin{tabular}{c}{$#1$}\\\hline$#2$\end{tabular}}
+
+
+\newcommand{\stackedRuleWhere}[3]{\begin{tabular}{l}{$#1$}\\\hline$#2$\\{\hspace{.125em}}where$\;{#3}$\end{tabular}\wwnlindent}
+
+\newcommand{\varDRule}{\stackedRuleWhere
+{\trans{TS}{env}{ts,sto}{(tsval,sto')}}
+{\strans{D}{var\;x\;:\;ts,env,sto}{(env',sto')}}
+{env' = \begin{array}[t]{l}case\;tsval\;of\\
+                         \;\;(L\;l)  \; \rightarrow \; env_0.vars[x\mapsto{}l]\\
+                         \;\;(E\; env'')\;\rightarrow\; env_0.records[x\mapsto{}env'']\\
+                         \end{array}}}
+
+\newcommand{\blockStm}{\stackedRule
+{\;\begin{array}[t]{l}
+   \strans{D}{D,env,sto}{(env',sto'')}\\
+   \trans{Stm}{(env'\cup{}env)}{S,sto'}{sto'}
+   \end{array}}
+{\trans{Stm}{env}{begin\,D\; in\; S,sto}{sto'}}
+}
+
+
+{}
+
+
+
+
