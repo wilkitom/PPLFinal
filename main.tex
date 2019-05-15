@@ -30,6 +30,8 @@ $Env = (vars := Var \bigcup \{next\} \rightharpoonup Loc) \times (procs := Pname
 
 \section{Big-Step Transition Rules}
 \subsection{Generalized Variables}
+The difference between the language in Huttle and the language we have been given to translate it too have few differences in this section. The only difference is that Env encompasses all 4 environments in Huttle. This being said, the only difference in the rules is accessing the elements of the single Env, instead of accessing all 4 types of environment separately. 
+\\
 $[GVAR-1_{BSS}]$
 \stackedRuleWhere
 {env'.records, env'.vars \vdash X \to l}
@@ -42,6 +44,8 @@ $[GVAR-2_{BSS}]$
 {\hspace{2cm}env.vars x = l}
 
 \subsection{Arithmetic Expressions}
+Similarly to the Generalized Variables rules, The difference between the language in Huttle and the language we have been given to translate it too have few differences in this section. The only difference is that Env encompasses all 4 environments in Huttle. This being said, the only difference in the rules is accessing the elements of the single Env, instead of accessing all 4 types of environment separately. \\
+\\
 $[GVAR_{BSS}]$
 \stackedRuleWhere
 {env'.records, env'.vars \vdash X \to l}
@@ -75,6 +79,7 @@ $[NUM_{BSS}]$
 \withWhere
 {env.records,env.vars,sto \vdash n \to_a v}
 {\hspace{1cm}$\mathbb{N}$[\![n]\!]=v}
+\subsection{Variable Declarations}
 
 
 
