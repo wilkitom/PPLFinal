@@ -1,7 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\include{header-1.tex}
+\usepackage{amssymb}
+\include{header-1}
 
 \title{PPLFinal}
 \author{wilkitom }
@@ -25,5 +26,56 @@ $TS ::= n \mid record \: D \mid X$\\
 $D ::= var \: x := a;TS \mid proc \:p\: is\: S;TS \mid class\: c\: is \:D \:end;TS \mid D\: D$
 
 \subsection{Environments}
-$Env = (vars := Var \bigcup \{next\} \rightharpoonup Loc) x (procs $
+$Env = (vars := Var \bigcup \{next\} \rightharpoonup Loc) \times (procs := Pnames \bigcup (S, Sto \vdash Sto') \times (records := Rnames\bigcup Env) \times (classes := Cnames \bigcup (TS \vdash TS', Sto \vdash Sto')$
+
+\section{Big-Step Transition Rules}
+\subsection{Generalized Variables}
+$[GVAR-1_{BSS}]$
+\stackedRuleWhere
+{env'.records, env'.vars \vdash X \to l}
+{env.records, env.vars \vdash r.X \to l}
+{envr = env'}\\
+\\
+$[GVAR-2_{BSS}]$
+\withWhere
+{env.records,env.vars \vdash x \to l}
+{\hspace{2cm}env.vars x = l}
+
+\subsection{Arithmetic Expressions}
+$[GVAR_{BSS}]$
+\stackedRuleWhere
+{env'.records, env'.vars \vdash X \to l}
+{env.records, env.vars, sto \vdash X \to_a v}
+{sto \: l = v}\\
+\\
+$[PLUS_{BSS}]$
+\stackedRuleWhere
+{env'.records, env'.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env'.records, env'.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1+a_2 \to_a v}
+{v= v_1 + v_2}\\
+\\
+$[MINUS_{BSS}]$
+\stackedRuleWhere
+{env'.records, env'.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env'.records, env'.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1-a_2 \to_a v}
+{v= v_1 - v_2}\\
+\\
+$[MULT_{BSS}]$
+\stackedRuleWhere
+{env'.records, env'.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env'.records, env'.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1*a_2 \to_a v}
+{v= v_1 * v_2}\\
+\\
+$[PARENT_{BSS}]$
+\stackedRule
+{env'.records, env'.vars, sto \vdash a_1 \to_a v_1}
+{env'.records, env'.vars, sto \vdash (a_1) \to_a v_1}\\
+\\
+$[NUM_{BSS}]$
+\withWhere
+{env.records,env.vars,sto \vdash n \to_a v}
+{\hspace{1cm}$\mathbb{N}$[\![n]\!]=v}
+
+
+
 \end{document}
