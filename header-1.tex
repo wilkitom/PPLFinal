@@ -14,6 +14,11 @@
 % where clause. 
 \newcommand{\withWhere}[1]{\begin{tabular}{l}{$#1$}\\{\hspace{3em}}where{\hspace{.5em}}\end{tabular}\wwnlindent}
 
+% withWhere takes an enpression and then prints a properly 
+% indented "where"  on the next line and then indents for the 
+%"where" entry. See \intTSRule for an example of a usage with one 
+% where clause. 
+\newcommand{\withIf}[1]{\begin{tabular}{l}{$#1$}\\{\hspace{3em}}If{\hspace{.5em}}\end{tabular}\wwnlindent}
 
 % a simple transition (with no \vdash)
 \newcommand{\strans}[3]{\langle{#2}\rangle\,\rightarrow_{#1}\,{#3}}
@@ -51,6 +56,8 @@
 
 
 \newcommand{\stackedRuleWhere}[3]{\begin{tabular}{l}{$#1$}\\\hline$#2$\\{\hspace{.125em}}where$\;{#3}$\end{tabular}\wwnlindent}
+
+\newcommand{\stackedRuleIf}[3]{\begin{tabular}{l}{$#1$}\\\hline$#2$\\{\hspace{.125em}}If$\;{#3}$\end{tabular}\wwnlindent}
 
 \newcommand{\varDRule}{\stackedRuleWhere
 {\trans{TS}{env}{ts,sto}{(tsval,sto')}}

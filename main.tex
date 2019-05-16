@@ -48,39 +48,101 @@ Similarly to the Generalized Variables rules, The difference between the languag
 \\
 $[GVAR_{BSS}]$
 \stackedRuleWhere
-{env'.records, env'.vars \vdash X \to l}
+{env.records, env.vars \vdash X \to l}
 {env.records, env.vars, sto \vdash X \to_a v}
 {sto \: l = v}\\
 \\
-$[PLUS_{BSS}]$
+$[PLUS_{BSS}]$\\
 \stackedRuleWhere
-{env'.records, env'.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env'.records, env'.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
 {env.records, env.vars, sto \vdash a_1+a_2 \to_a v}
 {v= v_1 + v_2}\\
 \\
-$[MINUS_{BSS}]$
+$[MINUS_{BSS}]$\\
 \stackedRuleWhere
-{env'.records, env'.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env'.records, env'.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
 {env.records, env.vars, sto \vdash a_1-a_2 \to_a v}
 {v= v_1 - v_2}\\
 \\
-$[MULT_{BSS}]$
+$[MULT_{BSS}]$\\
 \stackedRuleWhere
-{env'.records, env'.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env'.records, env'.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
 {env.records, env.vars, sto \vdash a_1*a_2 \to_a v}
 {v= v_1 * v_2}\\
 \\
 $[PARENT_{BSS}]$
 \stackedRule
-{env'.records, env'.vars, sto \vdash a_1 \to_a v_1}
-{env'.records, env'.vars, sto \vdash (a_1) \to_a v_1}\\
+{env.records, env.vars, sto \vdash a_1 \to_a v_1}
+{env.records, env.vars, sto \vdash (a_1) \to_a v_1}\\
 \\
 $[NUM_{BSS}]$
 \withWhere
 {env.records,env.vars,sto \vdash n \to_a v}
 {\hspace{1cm}$\mathbb{N}$[\![n]\!]=v}
+\subsection{Boolean Expressions}
+Similarly to the Arithmetic expression rules, The difference between the language in Huttle and the language we have been given to translate it too have few differences in this section. The only difference is that Env encompasses all 4 environments in Huttle. This being said, the only difference in the rules is accessing the elements of the single Env, instead of accessing all 4 types of environment separately. \\
+\\
+$[EQUAL-1_{BSS}]$\\
+\stackedRuleIf
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 = a_2 \to_b true}
+{v_1 = v_2}\\
+\\
+$[EQUAL-2_{BSS}]$\\
+\stackedRuleIf
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 = a_2 \to_b false}
+{v_1 \neq v_2}\\
+\\
+$[GREATERTHAN-1_{BSS}]$\\
+\stackedRuleIf
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 < a_2 \to_b true}
+{v_1 < v_2}\\
+\\
+$[GREATERTHAN-2_{BSS}]$\\
+\stackedRuleIf
+{env.records, env.vars, sto \vdash a_1 \to_a v_1 \hspace{1cm}env.records, env.vars, sto \vdash a_2 \to_a v_2}
+{env.records, env.vars, sto \vdash a_1 < a_2 \to_b false}
+{v_1 \nless v_2}\\
+\\
+$[NOT-1_{BSS}]$
+\stackedRule
+{env.records, env.vars, sto \vdash b \to_b true}
+{env.records, env.vars, sto \vdash \neg b \to_b false}\\
+\\
+$[NOT-2_{BSS}]$
+\stackedRule
+{env.records, env.vars, sto \vdash b \to_b false}
+{env.records, env.vars, sto \vdash \neg b \to_b true}\\
+\\
+$[PARENT_{BSS}]$
+\stackedRule
+{env.records, env.vars, sto \vdash b_1 \to_b v}
+{env.records, env.vars, sto \vdash (b_1) \to_b v}\\
+\\
+$[AND-1_{BSS}]$\\
+\stackedRule
+{env.records, env.vars, sto \vdash b_1 \to_b true \hspace{1cm} env.records, env.vars, sto \vdash b_2 \to_b true}
+{env.records, env.vars, sto \vdash b_1 \land b_2 \to_b true}\\
+\\
+$[AND-2_{BSS}]$
+\stackedRuleIf
+{env.records, env.vars, sto \vdash b_i \to_b false}
+{env.records, env.vars, sto \vdash b_1 \land b_2 \to_b false}
+{i \in \{1,2\}}\\
+\\
 \subsection{Variable Declarations}
-
+$[VAR-DECL_{BSS}]$
+\stackedRuleWhere
+{env.records \vdash \langle D, env'.vars, sto[l \mapsto v]\rangle \to_{D}(env'.vars,sto')}
+{env.records \vdash \langle var x := a; D, env.vars, sto \rangle \to_{D} (env'.vars,sto')}
+{env.records, env.vars, sto \vdash a \to_a v\\
+\hspace{1cm} and l = env.vars next\\
+\hspace{1cm} and env'.vars = env.vars [x \mapsto l][next \mapsto new \: l]}\\
+\\
+$[EMPTY-VAR-DECL_{BSS}]$
+$env.records \vdash \langle \epsilon ,env.vars,sto \rangle \to_D (env.vars,sto)$
 
 
 \end{document}
